@@ -389,9 +389,11 @@ consequences so a resuming agent understands *why*, not just *what*.
 
 - Context: three local BLAXCY trees had diverged — `/home/tsn/blaxcy` (legacy,
   Phase 15, ~34.6k LOC), `/home/tsn/blaxxcy` (prior attempt) and
-  `/home/tsn/blaxxxcy` (current). Two of them (`blaxcy` and `blaxxcy`) shared the
-  same git remote `tasinxxx/blaxcy` despite unrelated histories, so it was unsafe
-  to push from either and ambiguous where new work belonged.
+  `/home/tsn/blaxxxcy` (current). The two earlier ones keep separate, superseded
+  remotes under the old `tasinxxx` account (`tasinxxx/blaxcy` and
+  `tasinxxx/blaxxcy`), and `blaxcy`'s local HEAD (`9d46b02`) no longer matches its
+  remote HEAD (`d7ad3969`), so it was unsafe to push from either and ambiguous
+  where new work belonged.
 - Decision: `/home/tsn/blaxxxcy` is the **single canonical source of truth**,
   published as the public repo `github.com/alex3430143/blaxcyds`. The other two
   trees are frozen and reference-only. The full inventory, the hazard, and the

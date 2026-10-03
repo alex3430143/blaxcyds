@@ -12,18 +12,29 @@ Verified against the real filesystem and git on **2026-10-03**.
 |---|---|---|---|---|---|---|---|
 | `/home/tsn/blaxxxcy` | **CANONICAL** | `alex3430143/blaxcyds` (public) | `main` | 2 + tag `v1.0.0` | 2026-10-03 | ~9.0k | 247 funcs — **247 passing** |
 | `/home/tsn/blaxcy` | superseded — legacy (Phase 15) | `tasinxxx/blaxcy` | `master` | 24 | 2026-09-27 | ~34.6k | ~1979 funcs (not re-run) |
-| `/home/tsn/blaxxcy` | superseded — prior attempt | `tasinxxx/blaxcy` | `main` | 10 | 2026-10-02 | ~9.5k | ~184 funcs (not re-run) |
+| `/home/tsn/blaxxcy` | superseded — prior attempt | `tasinxxx/blaxxcy` | `main` | 10 | 2026-10-02 | ~9.5k | ~184 funcs (not re-run) |
 
 \* non-test `.py` lines, excluding `.venv` / `.runtime`.
 \*\* test-function count; only the canonical tree's suite is re-run and green
 (`python -m pytest -q` → **247 passed**, verified this session).
 
-### Hazard: two trees share one remote
+### Hazard: two superseded remotes, one of them out of sync
 
-`/home/tsn/blaxcy` and `/home/tsn/blaxxcy` **both** point `origin` at
-`github.com/tasinxxx/blaxcy`, yet their histories are unrelated (different commit
-sets). Pushing from either can clobber the other and the remote's current `HEAD`.
-**Do not push from those trees.** Neither is the source of truth.
+The two frozen trees keep **different** remotes under the old `tasinxxx` account —
+`/home/tsn/blaxcy` → `tasinxxx/blaxcy`, `/home/tsn/blaxxcy` → `tasinxxx/blaxxcy` —
+and their local histories are independent (they are separate projects, not a fork
+of each other). Neither remote is canonical, so pushing from either would
+re-animate a dead fork and confuse provenance:
+
+- `/home/tsn/blaxcy` is **out of sync** with its remote — local `9d46b02` vs
+  remote HEAD `d7ad3969` — so a push would be rejected, or unsafe if forced.
+- `/home/tsn/blaxxcy` is in sync with its own remote (`0aac3a3`).
+
+**Do not push from either tree.** Both are superseded by `alex3430143/blaxcyds`.
+
+> **Correction (2026-10-03):** an earlier revision of this file claimed both
+> trees shared the single remote `tasinxxx/blaxcy`. That was wrong — `blaxxcy`
+> points at `tasinxxx/blaxxcy`. The rule is unchanged: push from neither.
 
 ## Decision
 
