@@ -1,0 +1,59 @@
+name: Bug report
+description: Report a reproducible problem with BLAXCY
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Please do **not** include secrets, API keys, or
+        private screen content. For security issues, use the private
+        [Report a vulnerability](https://github.com/alex3430143/blaxcyds/security/advisories/new)
+        form instead of an issue.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. run `blaxcy ...`
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: "`blaxcy doctor --json` output"
+      description: Paste the JSON output. Review it first for anything private.
+      render: json
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: BLAXCY version
+      description: Output of `blaxcy --version`.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, desktop, session type (X11/Wayland), and Python version.
+      placeholder: "Ubuntu 24.04, XFCE, X11, Python 3.12"
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      options:
+        - label: I have removed any secrets, API keys, and private screen content from this report.
+          required: true

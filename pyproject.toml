@@ -1,0 +1,87 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blaxcy"
+version = "1.0.0"
+description = "BLAXCY — an AI like a human computer user (Linux desktop computer-use agent)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "BLAXCY contributors" }]
+keywords = [
+  "ai",
+  "computer-use",
+  "desktop-automation",
+  "gui-automation",
+  "linux",
+  "x11",
+  "wayland",
+  "agent",
+  "llm",
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: X11 Applications",
+  "Intended Audience :: Developers",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Desktop Environment",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "Pillow>=10.0",
+]
+
+[project.optional-dependencies]
+# Real mouse/keyboard/window control over X11 (XTEST). Without it BLAXCY still
+# runs, in dry-run only.
+control = ["PyAutoGUI>=0.9.54", "python-Xlib>=0.33"]
+# The ~20% control panel.
+ui = ["PyQt6>=6.5"]
+# OCR + computer-vision perception of widgets. Also needs the `tesseract` binary.
+vision = ["pytesseract>=0.3.10", "opencv-python-headless>=4.8", "numpy>=1.24"]
+# Encrypted-at-rest credential fallback when no OS keyring is present.
+security = ["cryptography>=41.0", "keyring>=24.0"]
+# Visible-browser control over the Chrome DevTools Protocol.
+browser = ["websocket-client>=1.6"]
+# Everything a full desktop install wants. Every feature degrades safely if an
+# optional dependency is missing, so a partial install is never fatal.
+all = [
+  "PyAutoGUI>=0.9.54",
+  "python-Xlib>=0.33",
+  "PyQt6>=6.5",
+  "pytesseract>=0.3.10",
+  "opencv-python-headless>=4.8",
+  "numpy>=1.24",
+  "cryptography>=41.0",
+  "keyring>=24.0",
+  "websocket-client>=1.6",
+]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[project.scripts]
+blaxcy = "blaxcy.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/alex3430143/blaxcyds"
+Repository = "https://github.com/alex3430143/blaxcyds"
+Issues = "https://github.com/alex3430143/blaxcyds/issues"
+Changelog = "https://github.com/alex3430143/blaxcyds/blob/main/CHANGELOG.md"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.setuptools.packages.find]
+include = ["blaxcy*"]

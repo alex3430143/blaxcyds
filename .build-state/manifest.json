@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "project": "BLAXCY",
+  "identity": "an AI like a human computer user",
+  "root": "/home/tsn/blaxxxcy",
+  "legacy_root": "/home/tsn/blaxcy",
+  "prior_attempt_root": "/home/tsn/blaxxcy",
+  "phase": "phase-3-multi-process-complete",
+  "status": "in_progress",
+  "current_task": "multi-process pass: Memory and Brain split into supervised services; validated model planning; IPC freshness/replay hardening; configurable split mode",
+  "last_checkpoint": "2026-10-02-multi-process",
+  "last_reverified": "2026-10-02T12:45:00Z",
+  "reverified_result": "246 passed; doctor OK; resume no discrepancies; split services verified; genuine REMOTE Brain provider measured (505 ms) vs local (556 ms) vs offline (2.35 ms)",
+  "acceptance": "B7_VERIFIED",
+  "tests": {
+    "pytest": "246 passed",
+    "pytest_command": "python3 -m pytest -q",
+    "doctor": "ok",
+    "doctor_command": "python -m blaxcy doctor"
+  },
+  "verified_live": {
+    "display": "X11 DISPLAY=:0.0 XFCE 1366x768",
+    "atspi": "available (2 windows)",
+    "ocr": "tesseract 5.5.0",
+    "cv": "opencv + numpy",
+    "local_model": "ollama tinyllama:latest end-to-end round-trip",
+    "credentials_backend": "encrypted-file",
+    "browser": "Chrome/Chromium over CDP \u2014 navigate/query/click/type/screenshot/eval",
+    "process_split": "blaxcy run --split all (eye+memory+brain) completed against the real X11 desktop; no orphan processes"
+  },
+  "process_split": {
+    "framework": "blaxcy/service.py (ServiceServer/ServiceClient/ProcessComponent/watch_parent) + authenticated IPC (blaxcy/ipc.py)",
+    "components": [
+      "eye",
+      "memory",
+      "brain"
+    ],
+    "tools": "intentionally in-process (DEC-023)",
+    "enabled_via": "BLAXCY_SPLIT env or `blaxcy run --split eye,memory,brain|all`; default in-process",
+    "ipc_security": "HMAC over version/type/payload/message_id/ts; \u00b160s freshness; bounded replay cache; duplicate-field rejection; IPC_VERSION=2",
+    "verified": "real subprocess serves real data over IPC; crash -> safe_release -> restart with a new pid; parent watchdog; no orphans"
+  },
+  "safety": {
+    "real_input_default": false,
+    "real_input_env_gate": "BLAXCY_ENABLE_REAL_INPUT",
+    "screen_persistence_default": false,
+    "telemetry_default": false,
+    "emergency_stop": true,
+    "model_output_cannot_authorize_actions": true
+  },
+  "not_started": [],
+  "environment_limited": {
+    "H5_remote_live_call": "remote provider path VERIFIED end-to-end via a free anonymous remote endpoint (scripts/brain_provider_bench.py); a specific account provider still needs a key (B-002)",
+    "D3_live_evidence": "needs a Wayland host with a portal (B-003)",
+    "multi_monitor": "single monitor on this host"
+  },
+  "next_action": "Multi-process architecture implemented and verified; a genuine remote Brain provider has been measured end-to-end. Remaining evidence is environment-gated: a specific account provider key (optional, B-002) and a Wayland host (D3, B-003).",
+  "brain_provider_bench": {
+    "script": "scripts/brain_provider_bench.py",
+    "profiles": [
+      "offline",
+      "local",
+      "remote"
+    ],
+    "records_serving_model": true,
+    "sequential_median_ms": {
+      "offline": 2.35,
+      "local": 556,
+      "remote": 505
+    },
+    "concurrent_4x4_median_ms": {
+      "local": 1848,
+      "remote": 511
+    },
+    "remote_endpoint": "genuine remote HTTPS (free anonymous OpenAI-compatible); keyed presets via BLAXCY_<PROVIDER>_API_KEY"
+  }
+}

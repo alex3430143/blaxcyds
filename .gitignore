@@ -1,0 +1,23 @@
+# Runtime / state
+.runtime/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Memory database and logs (may contain local state)
+*.sqlite
+*.sqlite3
+logs/
+*.log
+
+# Secrets — never commit
+.env
+*.key
+*.pem

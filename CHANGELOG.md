@@ -1,0 +1,67 @@
+# Changelog
+
+All notable changes to BLAXCY are documented here.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [1.0.0] - 2026-10-03
+
+The first public release: a tested, documented, policy-gated Linux computer-use
+agent.
+
+### Added
+
+- **Body** — typed actions (mouse move/click/double/right/drag/scroll, type, key,
+  hotkey, window switch, app launch, clipboard) over X11 XTEST, dry-run by
+  default, with emergency stop, pause, user takeover, heartbeat and safe input
+  release.
+- **Eye** — near-continuous desktop sampler with change/damage detection,
+  active-window and cursor metadata, AT-SPI accessibility, Tesseract OCR and
+  OpenCV computer vision, multi-monitor/HiDPI geometry, freshness, and p50/p95
+  latency metrics; Wayland portal capture behind a detection layer.
+- **Brain** — extensible model registry and capability router (OpenAI, Groq,
+  OpenRouter, Together, Anthropic, local Ollama, offline deterministic) with
+  retry, cooldown, timeout and honest availability.
+- **Policy** — a single risk chokepoint that classifies every action, refuses to
+  auto-perform auth boundaries (sudo/polkit, keyring, login, 2FA, CAPTCHA,
+  unlock), and treats external content as untrusted.
+- **Verification** — postconditions checked against the live `ScreenState`;
+  "action sent" is never reported as "task completed".
+- **Recovery** — idempotent re-check, safe retry, alternative method/tool/model,
+  replan and escalation, with an attempt ledger.
+- **Memory** — persistent SQLite experience with provenance, confidence, decay
+  and secret redaction, plus a trust level for external content.
+- **Tools** — policy-gated terminal, sandboxed filesystem, and real browser
+  control over the Chrome DevTools Protocol; delegation to other models with
+  independent verification.
+- **Supervisor and services** — supervised process split for Eye, Memory and
+  Brain over HMAC-authenticated Unix IPC, with restart, safe input release and
+  orphan prevention.
+- **Model → action boundary** — model output is validated against a closed
+  action/parameter whitelist with BLAXCY-assigned risk before it can reach Policy.
+- **GUI** — PyQt6 control panel occupying ~20% of the screen; the real desktop
+  stays ~80% visible.
+- **CLI** — `doctor`, `state`, `resume`, `models`, `tools`, `run`, `serve`,
+  `services`, `browser`, `delegate`, `accept-live`, `ui`.
+- **Install lifecycle** — user-level `install.sh` (local and one-line remote
+  bootstrap), `upgrade.sh`, `uninstall.sh`, with dry-run and data-preserving
+  semantics.
+- **Observability** — structured, redacted JSONL logs and `blaxcy doctor`.
+- **Tests** — 246 tests covering perception, control, policy, verification,
+  recovery, IPC, supervision, the installer lifecycle and negative paths; none
+  move the real mouse or keyboard.
+
+### Security
+
+- Real input is off by default and requires both `BLAXCY_ENABLE_REAL_INPUT=1`
+  and Policy approval per action.
+- IPC is authenticated (HMAC over version/type/payload/message-id/timestamp),
+  fresh (a ±60 s window), replay-protected and size-bounded.
+- Credentials resolve through the OS keyring, `secret-tool`, then an encrypted
+  file, and are never written to plaintext logs.
+
+[Unreleased]: https://github.com/alex3430143/blaxcyds/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/alex3430143/blaxcyds/releases/tag/v1.0.0
