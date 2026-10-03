@@ -384,3 +384,19 @@ consequences so a resuming agent understands *why*, not just *what*.
   real inference, no fallback). The same command measures any keyed preset by
   setting `BLAXCY_<PROVIDER>_API_KEY`; a specific account provider is a one-line
   re-run, not new code.
+
+## DEC-031 — One canonical source of truth: `alex3430143/blaxcyds`
+
+- Context: three local BLAXCY trees had diverged — `/home/tsn/blaxcy` (legacy,
+  Phase 15, ~34.6k LOC), `/home/tsn/blaxxcy` (prior attempt) and
+  `/home/tsn/blaxxxcy` (current). Two of them (`blaxcy` and `blaxxcy`) shared the
+  same git remote `tasinxxx/blaxcy` despite unrelated histories, so it was unsafe
+  to push from either and ambiguous where new work belonged.
+- Decision: `/home/tsn/blaxxxcy` is the **single canonical source of truth**,
+  published as the public repo `github.com/alex3430143/blaxcyds`. The other two
+  trees are frozen and reference-only. The full inventory, the hazard, and the
+  ordered port-back backlog live in `.build-state/RECONCILIATION.md`.
+- Consequences: work happens only in the canonical tree; nothing is ever pushed
+  to `tasinxxx/blaxcy`; legacy capabilities are ported individually with canonical
+  tests rather than merging whole trees. The canonical tree is verified green
+  (246 tests) with the two remaining gaps environment-gated (B-002, B-003).

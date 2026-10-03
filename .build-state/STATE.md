@@ -109,6 +109,11 @@ reference-only and are never modified or imported.
 - Post-packaging verification: 246 tests pass in the project `.venv`; a real
   `./install.sh --dev` succeeds; `ruff check --select E9,F63,F7,F82` is clean;
   `compileall` and `bash -n` on all scripts are clean.
+- Declared the **single canonical source of truth** (DEC-031): `/home/tsn/blaxxxcy`
+  → `github.com/alex3430143/blaxcyds`. The two earlier trees (`/home/tsn/blaxcy`
+  legacy, `/home/tsn/blaxxcy` prior attempt) are frozen and reference-only; two of
+  them shared the `tasinxxx/blaxcy` remote with unrelated histories, so do not push
+  from them. Inventory and port-back backlog: `RECONCILIATION.md`.
 
 ## How to resume
 

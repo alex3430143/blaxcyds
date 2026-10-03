@@ -262,6 +262,17 @@ honest list.
 
 ---
 
+## Project lineage
+
+BLAXCY went through two earlier local prototypes before this implementation.
+They are frozen and reference-only; **this repository is the canonical source of
+truth**. Useful ideas from the earlier work — single-instance guarding, observed
+coordinate calibration, a network-gated research tool, and richer target
+resolution — are tracked as port-back candidates in
+[`.build-state/RECONCILIATION.md`](.build-state/RECONCILIATION.md).
+
+---
+
 ## License
 
 [MIT](LICENSE) © BLAXCY contributors.
