@@ -21,7 +21,7 @@
 
 ## Verification
 
-- [ ] `python -m pytest -q` passes (246 tests, no real mouse/keyboard).
+- [ ] `python -m pytest -q` passes (247 tests, no real mouse/keyboard).
 - [ ] `python -m compileall -q blaxcy tests` passes.
 - [ ] `bash -n install.sh upgrade.sh uninstall.sh` passes.
 - [ ] `ruff check --select E9,F63,F7,F82 blaxcy tests` passes.

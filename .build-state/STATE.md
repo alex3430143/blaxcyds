@@ -15,16 +15,17 @@ reference-only and are never modified or imported.
   for the components that benefit from isolation.
 - Active task: none in progress. All on-host acceptance criteria are met.
 - Verified (2026-10-02, from the real filesystem): `python3 -m pytest` →
-  **246 passed**; `python -m blaxcy doctor` → OK; `python -m blaxcy resume` → no
-  discrepancies; **B7 live acceptance → verified (4/4 runs)** (`B7_EVIDENCE.md`);
+  **247 passed**; `python -m blaxcy doctor` → OK; `python -m blaxcy resume` → no
+  discrepancies; **B7 live acceptance → a prior session recorded 4/4, but the
+  artifact is missing (B-010) and must be regenerated**;
   **Eye, Memory and Brain all run as supervised subprocesses serving real data
   over authenticated IPC, restarting on crash** (DEC-021, DEC-022); full split
   `blaxcy run --split all` verified end-to-end against the real X11 desktop;
   model output can never authorize Body actions (DEC-024); IPC hardened for
   freshness/replay/duplicate fields (DEC-025).
 - Last safe checkpoint: see `CHECKPOINT.md`
-- Overall: **B7 is closed and the multi-process architecture is implemented and
-  verified for Eye/Memory/Brain.** Tools intentionally remain in-process with a
+- Overall: **the multi-process architecture is implemented and verified for
+  Eye/Memory/Brain; B7's live artifact is missing (B-010).** Tools intentionally remain in-process with a
   documented rationale (DEC-023). A **genuine remote provider** was measured for
   the Brain service over public HTTPS (remote 505 ms / local 556 ms / offline
   2.35 ms; `scripts/brain_provider_bench.py`, PERFORMANCE.md, DEC-030). One
@@ -85,7 +86,8 @@ reference-only and are never modified or imported.
    still needs a key (B-002).
 2. D3 live evidence — needs a Wayland host with a portal (B-003). Implemented
    and tested against a fake portal bus; cannot be exercised on this X11 host.
-3. B7 is **verified** (was the last on-host item).
+3. B7's live artifact is **missing** (B-010) — regenerate it with
+   `BLAXCY_ENABLE_REAL_INPUT=1 blaxcy accept-live` before claiming VERIFIED.
 
 ## Public release (2026-10-03)
 
@@ -106,7 +108,7 @@ reference-only and are never modified or imported.
 - Corrected stale `docs/SECURITY.md` "not implemented" gaps that were already
   implemented (credentials L3, AT-SPI C8, OCR/CV C9); the section now lists the
   genuinely remaining gaps.
-- Post-packaging verification: 246 tests pass in the project `.venv`; a real
+- Post-packaging verification: 247 tests pass in the project `.venv`; a real
   `./install.sh --dev` succeeds; `ruff check --select E9,F63,F7,F82` is clean;
   `compileall` and `bash -n` on all scripts are clean.
 - Declared the **single canonical source of truth** (DEC-031): `/home/tsn/blaxxxcy`

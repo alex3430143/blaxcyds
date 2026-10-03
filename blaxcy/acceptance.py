@@ -151,13 +151,19 @@ class LiveAcceptanceResult:
 
 def _write_evidence(path: str | Path, result: LiveAcceptanceResult) -> None:
     path = Path(path)
+    # A refusal is an authorization outcome, not acceptance evidence. Writing it
+    # over the real artifact would destroy genuine evidence (and once did), so a
+    # refusal is recorded beside it as `<stem>.refused<suffix>` instead.
+    refused = bool(result.evidence.get("refused"))
+    if refused:
+        path = path.with_name(f"{path.stem}.refused{path.suffix}")
     path.parent.mkdir(parents=True, exist_ok=True)
     lines = [
         "# BLAXCY — B7 Live Acceptance Evidence",
         "",
         f"- timestamp: {time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}",
         f"- token: `{result.token or '-'}`",
-        f"- real input authorized: yes",
+        f"- real input authorized: {'no (refused)' if refused else 'yes'}",
         f"- display: `{os.environ.get('DISPLAY', '')}` "
         f"session=`{os.environ.get('XDG_SESSION_TYPE', '')}`",
         f"- **verified: {result.verified}**",

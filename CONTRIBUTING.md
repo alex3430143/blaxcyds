@@ -31,7 +31,7 @@ source .venv/bin/activate
 ## Before you open a pull request
 
 ```bash
-python -m pytest -q                       # 246 tests
+python -m pytest -q                       # 247 tests
 python -m compileall -q blaxcy tests      # syntax
 bash -n install.sh upgrade.sh uninstall.sh
 ruff check --select E9,F63,F7,F82 blaxcy tests   # real errors (undefined names, syntax)

@@ -15,9 +15,10 @@
   "last_checkpoint": "2026-10-02-multi-process",
   "last_reverified": "2026-10-02T12:45:00Z",
   "reverified_result": "246 passed; doctor OK; resume no discrepancies; split services verified; genuine REMOTE Brain provider measured (505 ms) vs local (556 ms) vs offline (2.35 ms)",
-  "acceptance": "B7_VERIFIED",
+  "acceptance": "B7_ARTIFACT_MISSING_RERUN_REQUIRED",
+  "acceptance_note": "A prior session recorded a 4/4 live B7 run, but the artifact was overwritten by an unauthorized accept-live run (B-010). B7 is IMPLEMENTED, not VERIFIED, until regenerated with BLAXCY_ENABLE_REAL_INPUT=1 blaxcy accept-live.",
   "tests": {
-    "pytest": "246 passed",
+    "pytest": "247 passed",
     "pytest_command": "python3 -m pytest -q",
     "doctor": "ok",
     "doctor_command": "python -m blaxcy doctor"

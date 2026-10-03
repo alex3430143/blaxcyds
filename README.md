@@ -5,7 +5,7 @@
 [![CI](https://github.com/alex3430143/blaxcyds/actions/workflows/ci.yml/badge.svg)](https://github.com/alex3430143/blaxcyds/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
-[![Tests](https://img.shields.io/badge/tests-246%20passing-brightgreen.svg)](#development)
+[![Tests](https://img.shields.io/badge/tests-247%20passing-brightgreen.svg)](#development)
 
 BLAXCY owns a high-level goal, observes the **real** Linux desktop, decides what
 to do, physically acts on the machine, observes the result, verifies success,
@@ -232,7 +232,7 @@ cd blaxcyds
 ./install.sh --dev
 source .venv/bin/activate
 
-python -m pytest -q          # 246 tests; never move the real mouse or keyboard
+python -m pytest -q          # 247 tests; never move the real mouse or keyboard
 python -m compileall -q blaxcy tests
 blaxcy doctor --json
 ```
@@ -246,15 +246,19 @@ real input. The suite runs under Xvfb in CI on Python 3.11, 3.12 and 3.13. See
 ## Status
 
 `1.0.0` — a tested, documented Linux computer-use agent. On this project's
-reference host (X11): **246 tests pass**, `blaxcy doctor` is clean, the live
-desktop acceptance test (B7) is verified, and per-provider Brain latency is
-measured and recorded in [`.build-state/PERFORMANCE.md`](.build-state/PERFORMANCE.md).
+reference host (X11): **247 tests pass**, `blaxcy doctor` is clean, and
+per-provider Brain latency is measured and recorded in
+[`.build-state/PERFORMANCE.md`](.build-state/PERFORMANCE.md).
 
-Two evidence items remain **environment-gated rather than code-incomplete**, and
-are stated plainly rather than faked:
+Verification is stated plainly rather than assumed:
 
-- **Wayland live proof** needs a Wayland host with an XDG portal. The portal
-  path is implemented and unit-tested against a fake portal bus.
+- The **live desktop acceptance harness** (`blaxcy accept-live`) is implemented,
+  tested, and reversible. A prior session recorded a 4/4 verified run, but the
+  on-disk artifact was later overwritten by an unauthorized run — so B7 is
+  reported `IMPLEMENTED`, not `VERIFIED`, until
+  `BLAXCY_ENABLE_REAL_INPUT=1 blaxcy accept-live` regenerates it (blocker B-010).
+- **Wayland live proof** needs a Wayland host with an XDG portal. The portal path
+  is implemented and unit-tested against a fake portal bus.
 - **A specific keyed account provider** needs a real API key.
 
 See [`.build-state/BLOCKERS.md`](.build-state/BLOCKERS.md) for the complete,

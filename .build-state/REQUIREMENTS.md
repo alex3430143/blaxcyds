@@ -29,7 +29,7 @@ Legend for evidence: file paths and test names that actually exist in the repo.
 | B4 | Dry-run is the default; real input requires explicit opt-in AND policy approval | IMPLEMENTED | `blaxcy/config.py`, `blaxcy/policy.py`, `tests/test_policy.py` |
 | B5 | Emergency stop, pause, user takeover, heartbeat, safe input release on crash | IMPLEMENTED | `blaxcy/policy.py`, `blaxcy/body/backends.py` |
 | B6 | Real X11 backend using XTEST/pyautogui/xdotool | IMPLEMENTED | `blaxcy/body/backends.py` |
-| B7 | Controlled live-desktop acceptance evidence (real visible interaction) | VERIFIED | `blaxcy/acceptance.py` + `blaxcy accept-live`; **live evidence produced 2026-10-01T12:34Z** → `.build-state/B7_EVIDENCE.md` (real cursor move / click / type / key press verified against the throwaway terminal's file AND by independent Eye perception of the cursor and focused window). 4/4 consecutive verified runs. `tests/test_acceptance.py` |
+| B7 | Controlled live-desktop acceptance evidence (real visible interaction) | IMPLEMENTED | `blaxcy/acceptance.py` + `blaxcy accept-live` (auth gate, independent Eye verification, reversible cursor restore), covered by `tests/test_acceptance.py`. A prior session recorded a 4/4 verified run, but the on-disk artifact (`.build-state/B7_EVIDENCE.md`) was overwritten before 2026-10-03 and has **not** been regenerated — see BLOCKERS B-010. Do not report VERIFIED until `BLAXCY_ENABLE_REAL_INPUT=1 blaxcy accept-live` produces the artifact. |
 
 ## C. Live Eye (Perception)
 
@@ -192,20 +192,21 @@ Legend for evidence: file paths and test names that actually exist in the repo.
 
 ## Acceptance criteria mapping (master prompt §29)
 
-**Net (2026-10-01, after the live B7 run): every acceptance criterion is now
-closed on this host.** B7 was previously the only on-host item without produced
-evidence; the live run succeeded (`.build-state/B7_EVIDENCE.md`, 4/4 verified).
-Two evidence items remain that are purely *environment-gated* and cannot be
-produced here — H5's remote half (needs remote API keys, b-002) and D3's live
-proof (needs a Wayland host with a portal, B-003); both are IMPLEMENTED and
-tested. No requirement was weakened to reach this point.
+**Net (revised 2026-10-03): every acceptance criterion is closed on this host
+except B7's artifact.** A prior session recorded a 4/4 live B7 run, but its
+on-disk evidence was later overwritten and has not been regenerated (BLOCKERS
+B-010), so B7 is reported `IMPLEMENTED` rather than `VERIFIED` until the artifact
+exists. Two further items are purely *environment-gated*: H5's remote half (needs
+remote API keys, B-002) and D3's live proof (needs a Wayland host with a portal,
+B-003); both are IMPLEMENTED and tested. No requirement was weakened to reach
+this point.
 
 C1/C10 (perception performance): the live run exposed that X11 window
 enumeration spawned up to ~180 `xdotool` subprocesses per frame (~6.8s) and a
 `mousemove --sync` that hangs when the pointer is already at the target. Both
 were fixed (DEC-018/DEC-019); frames dropped from ~2.4–11.7s to ~0.8s.
 
-- Computer User: B1–B6 VERIFIED/IMPLEMENTED; B7 harness built, live run gated.
+- Computer User: B1–B6 VERIFIED/IMPLEMENTED; B7 harness built, tested and authorized, artifact pending (B-010).
 - Live Eye: C1–C10 IMPLEMENTED/VERIFIED.
 - Autonomy: A2, F1–F3, G1–G3, K1 IMPLEMENTED.
 - UI: E1–E4 IMPLEMENTED.
@@ -245,8 +246,9 @@ where possible a real runtime check:
 - H5 → local provider VERIFIED live; remote provider path now VERIFIED over a
   real remote endpoint (`scripts/brain_provider_bench.py`, PERFORMANCE.md); a
   keyed account provider only needs a key (B-002).
-- B7 → harness IMPLEMENTED and tested; the actual live run is gated on explicit
-  real-input authorization and has therefore not been produced.
+- B7 → harness IMPLEMENTED and tested; a live run was authorized and executed by
+  a prior session, but its artifact was subsequently overwritten (B-010) and must
+  be regenerated before B7 is claimed VERIFIED.
 
 Status advances on 2026-10-02 (Brain provider latency pass):
 

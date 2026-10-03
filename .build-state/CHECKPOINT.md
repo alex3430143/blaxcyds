@@ -8,6 +8,15 @@
   session fixed a real undefined-`Any` defect in `blaxcy/eye/x11.py`. 246 tests
   pass, `./install.sh --dev` verified, error-only Ruff clean. Published to
   `alex3430143/blaxcyds`.
+- 2026-10-03 (evidence integrity): fixed a bug where an **unauthorized**
+  `accept-live` run overwrote the real B7 evidence artifact. Root cause: the CLI
+  test ran against the project root, so `Application()` wrote into the real
+  `.build-state/`. The test is now isolated with `BLAXCY_ROOT`,
+  `blaxcy/acceptance.py` writes refusals to `B7_EVIDENCE.refused.md` and never
+  overwrites real evidence, and a regression test guards it. The genuine
+  artifact is still missing (B-010), so B7 is downgraded from VERIFIED to
+  IMPLEMENTED until `BLAXCY_ENABLE_REAL_INPUT=1 blaxcy accept-live` regenerates it.
+  The suite is now 247 tests.
 
 - Timestamp: 2026-10-01 (Phase-2/3 pass: browser, delegation, installer, Wayland,
   provider hardening, B7 harness)

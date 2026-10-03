@@ -92,7 +92,23 @@ def test_refuses_without_real_input_authorization(tmp_path):
     assert result.ok is False and result.verified is False
     assert result.evidence.get("refused") is True
     assert target.opened is False
-    assert (tmp_path / "B7_EVIDENCE.md").exists()
+    # A refusal must never overwrite the real evidence artifact; it is recorded
+    # beside it instead.
+    assert not (tmp_path / "B7_EVIDENCE.md").exists()
+    refused = (tmp_path / "B7_EVIDENCE.refused.md").read_text()
+    assert "refused" in refused
+    assert "authorized: no (refused)" in refused
+
+
+def test_refusal_does_not_overwrite_existing_evidence(tmp_path):
+    """An unauthorized run must leave a prior verified artifact untouched."""
+    real = tmp_path / "B7_EVIDENCE.md"
+    real.write_text("# BLAXCY — B7 Live Acceptance Evidence\n- **verified: True**\n",
+                    encoding="utf-8")
+    _run(Policy(real_input_enabled=False), RecordingBody(FakeTarget()),
+         StubEye((0, 0), "x"), tmp_path)
+    assert "verified: True" in real.read_text()
+    assert (tmp_path / "B7_EVIDENCE.refused.md").exists()
 
 
 def test_verified_run_when_everything_works(tmp_path):
@@ -140,9 +156,15 @@ def test_xterm_target_is_inert_until_opened():
     target.close()  # must not raise
 
 
-def test_cli_accept_live_refuses_without_authorization(capsys, monkeypatch):
+def test_cli_accept_live_refuses_without_authorization(capsys, monkeypatch, tmp_path):
     from blaxcy.cli import main
 
+    # Isolate BLAXCY_ROOT: a CLI acceptance test must never write into the
+    # project's real .build-state and clobber collected evidence.
+    monkeypatch.setenv("BLAXCY_ROOT", str(tmp_path))
     monkeypatch.delenv("BLAXCY_ENABLE_REAL_INPUT", raising=False)
     code = main(["accept-live", "--json"])
     assert code == 2  # refused, not verified, not an error
+    build_state = tmp_path / ".build-state"
+    assert (build_state / "B7_EVIDENCE.refused.md").exists()
+    assert not (build_state / "B7_EVIDENCE.md").exists()

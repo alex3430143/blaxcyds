@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- An unauthorized `blaxcy accept-live` run no longer overwrites real B7 evidence:
+  refusals are written to `B7_EVIDENCE.refused.md`, and the CLI test that caused
+  the clobbering is isolated. B7 is reported `IMPLEMENTED`, not `VERIFIED`, until
+  the artifact is regenerated (B-010).
+
 ## [1.0.0] - 2026-10-03
 
 The first public release: a tested, documented, policy-gated Linux computer-use

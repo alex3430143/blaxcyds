@@ -2,7 +2,7 @@
 
 A resuming agent MUST re-run the tests rather than trusting these entries.
 
-## Test inventory (31 files, 246 tests)
+## Test inventory (31 files, 247 tests)
 
 | Test file | Covers | Requirement IDs |
 |-----------|--------|-----------------|
@@ -29,7 +29,7 @@ A resuming agent MUST re-run the tests rather than trusting these entries.
 | `tests/test_delegation.py` (11) | verification helpers, delegation, cross-check, provenance | I4 |
 | `tests/test_installer.py` (10) | install/upgrade/uninstall dry-run + real temp-root uninstall | N5, P1 |
 | `tests/test_wayland.py` (10) | portal detection, portal protocol (fake bus), backend, selection | D3 |
-| `tests/test_acceptance.py` (6) | B7 auth gate, verification, cursor restore, cleanup | B7 |
+| `tests/test_acceptance.py` (7) | B7 auth gate, verification, cursor restore, cleanup; a refusal records to `B7_EVIDENCE.refused.md` and never overwrites real evidence | B7, B-010 |
 | `tests/test_config.py` (7) | `.env` parse, env precedence, dotenv→registry integration, `parse_split`, `BLAXCY_SPLIT`/`BLAXCY_ROOT` settings | H5, M7, DEC-020 |
 | `tests/test_service.py` (10) | IPC service round-trip/auth/unknown-method, real subprocess spawn + stop, startup failure, crash→restart with safe release, parent watchdog, RemoteEye degradation | M5, M6, DEC-021 |
 | `tests/test_split_services.py` (11) | real `blaxcy serve` subprocesses for Memory + Brain: authenticated ping, real API call, crash→detection→restart with a new pid, parent watchdog, down-service raises (never empty), ScreenState freshness/provenance over the wire, concurrent-caller integrity (DEC-026), `--split all` normalization (DEC-029), Application run with memory+brain split | M5, M6, M7, DEC-022, DEC-026, DEC-029 |
@@ -41,11 +41,17 @@ A resuming agent MUST re-run the tests rather than trusting these entries.
 ## Last run
 
 - Command: `python3 -m pytest`
-- Result: **246 passed**
+- Result: **247 passed**
   (183 → 185 live-run regressions → 189 `.env` → 199 process-split (Eye) →
   236 Memory+Brain split, planning validation, IPC security, config/CLI,
   concurrent-caller regression → 243 supervisor soak, load harness smoke →
-  244 split-alias normalization regression → 246 Brain provider bench)
+  244 split-alias normalization regression → 246 Brain provider bench →
+  247 acceptance-refusal evidence regression, B-010)
+- Note (B-010): the B7 evidence artifact was overwritten by an unauthorized
+  `accept-live` run. `blaxcy/acceptance.py` now writes refusals to
+  `B7_EVIDENCE.refused.md`, the CLI test is isolated with `BLAXCY_ROOT`, and a
+  regression test asserts a refusal never overwrites real evidence. B7 is
+  `IMPLEMENTED`, not `VERIFIED`, until the artifact is regenerated.
 - Environment: Python 3.14.6, X11, XFCE.
 - Safety: no test moves the real mouse/keyboard. Perception uses fakes; control
   uses `DryRunBackend`; the B7 tests use a fake target/body/eye. The browser test

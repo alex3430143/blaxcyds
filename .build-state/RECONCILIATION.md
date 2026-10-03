@@ -10,13 +10,13 @@ Verified against the real filesystem and git on **2026-10-03**.
 
 | Tree | Role | Git remote | Branch | Commits | Last commit | Source LOC* | Tests** |
 |---|---|---|---|---|---|---|---|
-| `/home/tsn/blaxxxcy` | **CANONICAL** | `alex3430143/blaxcyds` (public) | `main` | 2 + tag `v1.0.0` | 2026-10-03 | ~9.0k | 246 funcs — **246 passing** |
+| `/home/tsn/blaxxxcy` | **CANONICAL** | `alex3430143/blaxcyds` (public) | `main` | 2 + tag `v1.0.0` | 2026-10-03 | ~9.0k | 247 funcs — **247 passing** |
 | `/home/tsn/blaxcy` | superseded — legacy (Phase 15) | `tasinxxx/blaxcy` | `master` | 24 | 2026-09-27 | ~34.6k | ~1979 funcs (not re-run) |
 | `/home/tsn/blaxxcy` | superseded — prior attempt | `tasinxxx/blaxcy` | `main` | 10 | 2026-10-02 | ~9.5k | ~184 funcs (not re-run) |
 
 \* non-test `.py` lines, excluding `.venv` / `.runtime`.
 \*\* test-function count; only the canonical tree's suite is re-run and green
-(`python -m pytest -q` → **246 passed**, verified this session).
+(`python -m pytest -q` → **247 passed**, verified this session).
 
 ### Hazard: two trees share one remote
 
@@ -31,7 +31,9 @@ sets). Pushing from either can clobber the other and the remote's current `HEAD`
 
 Why this one:
 
-- Most recent and most tested work (246 green tests, live B7 desktop acceptance).
+- Most recent and most tested work (247 green tests; the live B7 acceptance
+  harness is implemented and tested, with its artifact pending regeneration per
+  B-010).
 - A complete, installable package: one-line installer, PEP 639 metadata with
   declared extras, CI, LICENSE, and the docs a production repo needs.
 - Written from scratch after the two earlier trees, already carrying the
