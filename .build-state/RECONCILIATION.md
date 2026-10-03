@@ -31,9 +31,8 @@ sets). Pushing from either can clobber the other and the remote's current `HEAD`
 
 Why this one:
 
-- Most recent and most tested work (247 green tests; the live B7 acceptance
-  harness is implemented and tested, with its artifact pending regeneration per
-  B-010).
+- Most recent and most tested work (247 green tests plus a genuine B7
+  live-acceptance artifact, verified 2026-10-03).
 - A complete, installable package: one-line installer, PEP 639 metadata with
   declared extras, CI, LICENSE, and the docs a production repo needs.
 - Written from scratch after the two earlier trees, already carrying the

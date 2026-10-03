@@ -17,6 +17,14 @@
   artifact is still missing (B-010), so B7 is downgraded from VERIFIED to
   IMPLEMENTED until `BLAXCY_ENABLE_REAL_INPUT=1 blaxcy accept-live` regenerates it.
   The suite is now 247 tests.
+- 2026-10-03T08:03Z (B7 regenerated, B-010 RESOLVED): the operator authorized a
+  real run. `BLAXCY_ENABLE_REAL_INPUT=1 blaxcy accept-live` completed with
+  **13/13 steps, `verified: True`, token `blaxcy-ef473f8a`** — real cursor
+  save (1003,668), real mouse move to (688,445), real click, real typing confirmed
+  in the throwaway terminal's file, **independent Eye observation** of the cursor
+  and the focused `BLAXCY_ACCEPT` window, EOF, cursor restored, target closed.
+  Artifact: `.build-state/B7_EVIDENCE.md`. B7 is VERIFIED again, and B-001/B-010
+  are RESOLVED. Requirements, manifest, README and STATE.md reflect this.
 
 - Timestamp: 2026-10-01 (Phase-2/3 pass: browser, delegation, installer, Wayland,
   provider hardening, B7 harness)

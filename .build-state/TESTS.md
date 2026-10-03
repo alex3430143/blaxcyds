@@ -47,11 +47,15 @@ A resuming agent MUST re-run the tests rather than trusting these entries.
   concurrent-caller regression → 243 supervisor soak, load harness smoke →
   244 split-alias normalization regression → 246 Brain provider bench →
   247 acceptance-refusal evidence regression, B-010)
-- Note (B-010): the B7 evidence artifact was overwritten by an unauthorized
-  `accept-live` run. `blaxcy/acceptance.py` now writes refusals to
+- Note (B-010, RESOLVED): the B7 evidence artifact had been overwritten by an
+  unauthorized `accept-live` run. `blaxcy/acceptance.py` now writes refusals to
   `B7_EVIDENCE.refused.md`, the CLI test is isolated with `BLAXCY_ROOT`, and a
-  regression test asserts a refusal never overwrites real evidence. B7 is
-  `IMPLEMENTED`, not `VERIFIED`, until the artifact is regenerated.
+  regression test asserts a refusal never overwrites real evidence.
+- 2026-10-03 (live acceptance, 08:03Z): **B7 VERIFIED (13/13 steps)** via
+  `BLAXCY_ENABLE_REAL_INPUT=1 blaxcy accept-live` — real move/click/type, token
+  `blaxcy-ef473f8a` confirmed in the target file, independent Eye confirmation,
+  cursor restored. Artifact: `.build-state/B7_EVIDENCE.md`. The suite above
+  remains 247 passing and still never moves the real mouse/keyboard.
 - Environment: Python 3.14.6, X11, XFCE.
 - Safety: no test moves the real mouse/keyboard. Perception uses fakes; control
   uses `DryRunBackend`; the B7 tests use a fake target/body/eye. The browser test

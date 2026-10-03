@@ -246,17 +246,17 @@ real input. The suite runs under Xvfb in CI on Python 3.11, 3.12 and 3.13. See
 ## Status
 
 `1.0.0` — a tested, documented Linux computer-use agent. On this project's
-reference host (X11): **247 tests pass**, `blaxcy doctor` is clean, and
-per-provider Brain latency is measured and recorded in
+reference host (X11): **247 tests pass**, `blaxcy doctor` is clean, the live
+desktop acceptance test (B7) is verified (13/13 steps against the real desktop),
+and per-provider Brain latency is measured and recorded in
 [`.build-state/PERFORMANCE.md`](.build-state/PERFORMANCE.md).
 
-Verification is stated plainly rather than assumed:
+Evidence and limits are stated plainly rather than assumed:
 
-- The **live desktop acceptance harness** (`blaxcy accept-live`) is implemented,
-  tested, and reversible. A prior session recorded a 4/4 verified run, but the
-  on-disk artifact was later overwritten by an unauthorized run — so B7 is
-  reported `IMPLEMENTED`, not `VERIFIED`, until
-  `BLAXCY_ENABLE_REAL_INPUT=1 blaxcy accept-live` regenerates it (blocker B-010).
+- **B7 live acceptance** (`blaxcy accept-live`) is verified with real input — see
+  the timestamped artifact in [`.build-state/B7_EVIDENCE.md`](.build-state/B7_EVIDENCE.md).
+  A refusal records to `B7_EVIDENCE.refused.md` and can never overwrite that
+  artifact.
 - **Wayland live proof** needs a Wayland host with an XDG portal. The portal path
   is implemented and unit-tested against a fake portal bus.
 - **A specific keyed account provider** needs a real API key.

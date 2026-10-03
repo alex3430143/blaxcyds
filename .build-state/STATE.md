@@ -15,17 +15,16 @@ reference-only and are never modified or imported.
   for the components that benefit from isolation.
 - Active task: none in progress. All on-host acceptance criteria are met.
 - Verified (2026-10-02, from the real filesystem): `python3 -m pytest` →
-  **247 passed**; `python -m blaxcy doctor` → OK; `python -m blaxcy resume` → no
-  discrepancies; **B7 live acceptance → a prior session recorded 4/4, but the
-  artifact is missing (B-010) and must be regenerated**;
+  discrepancies; **B7 live acceptance → VERIFIED 2026-10-03T08:03Z (13/13 steps)**
+  → `.build-state/B7_EVIDENCE.md`;
   **Eye, Memory and Brain all run as supervised subprocesses serving real data
   over authenticated IPC, restarting on crash** (DEC-021, DEC-022); full split
   `blaxcy run --split all` verified end-to-end against the real X11 desktop;
   model output can never authorize Body actions (DEC-024); IPC hardened for
   freshness/replay/duplicate fields (DEC-025).
 - Last safe checkpoint: see `CHECKPOINT.md`
-- Overall: **the multi-process architecture is implemented and verified for
-  Eye/Memory/Brain; B7's live artifact is missing (B-010).** Tools intentionally remain in-process with a
+- Overall: **B7 is VERIFIED (artifact 2026-10-03) and the multi-process
+  architecture is implemented and verified for Eye/Memory/Brain.** Tools intentionally remain in-process with a
   documented rationale (DEC-023). A **genuine remote provider** was measured for
   the Brain service over public HTTPS (remote 505 ms / local 556 ms / offline
   2.35 ms; `scripts/brain_provider_bench.py`, PERFORMANCE.md, DEC-030). One
@@ -86,8 +85,8 @@ reference-only and are never modified or imported.
    still needs a key (B-002).
 2. D3 live evidence — needs a Wayland host with a portal (B-003). Implemented
    and tested against a fake portal bus; cannot be exercised on this X11 host.
-3. B7's live artifact is **missing** (B-010) — regenerate it with
-   `BLAXCY_ENABLE_REAL_INPUT=1 blaxcy accept-live` before claiming VERIFIED.
+3. B7 is **verified** — its artifact was regenerated on 2026-10-03 (B-010
+   resolved); re-run `BLAXCY_ENABLE_REAL_INPUT=1 blaxcy accept-live` to refresh it.
 
 ## Public release (2026-10-03)
 
@@ -116,6 +115,10 @@ reference-only and are never modified or imported.
   legacy, `/home/tsn/blaxxcy` prior attempt) are frozen and reference-only; two of
   them shared the `tasinxxx/blaxcy` remote with unrelated histories, so do not push
   from them. Inventory and port-back backlog: `RECONCILIATION.md`.
+- Evidence integrity (B-010, now RESOLVED): fixed the bug where an unauthorized
+  `accept-live` run overwrote the real B7 artifact, then **regenerated genuine B7
+  evidence** — a live run with real input on 2026-10-03T08:03Z, 13/13 steps,
+  `verified: True` → `.build-state/B7_EVIDENCE.md`. The suite is now 247 tests.
 
 ## How to resume
 
