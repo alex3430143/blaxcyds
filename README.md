@@ -27,6 +27,26 @@ UNDERSTAND → PLAN → OBSERVE REAL DESKTOP → POLICY CHECK → REAL ACTION
 
 ---
 
+## See it
+
+A real terminal session — `blaxcy doctor`, `blaxcy models`, `blaxcy services` — and
+the control panel docked on the right while a real application window stays
+visible on the left:
+
+![BLAXCY terminal session](docs/assets/demo.gif)
+
+![BLAXCY control panel with a real desktop on the left](docs/assets/gui-desktop.png)
+
+The panel is the **actual** PyQt6 widget (`blaxcy/ui/panel.py`); the terminal and
+the desktop window are **real** X11 windows. Both images were captured on a
+headless Xvfb display, and real input is dry-run by default.
+
+The ~20% panel shows the goal, the current action, status, the model/tool in use,
+progress, verification and errors, and carries **Pause / Resume / Emergency Stop /
+User Takeover** controls wired straight to Policy.
+
+---
+
 ## Install
 
 One line — downloads the source, builds an isolated environment, installs the
