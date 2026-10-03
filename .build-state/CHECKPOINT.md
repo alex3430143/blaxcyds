@@ -25,6 +25,12 @@
   and the focused `BLAXCY_ACCEPT` window, EOF, cursor restored, target closed.
   Artifact: `.build-state/B7_EVIDENCE.md`. B7 is VERIFIED again, and B-001/B-010
   are RESOLVED. Requirements, manifest, README and STATE.md reflect this.
+- 2026-10-03T08:11Z (B7 re-run, reproducibility check): a second authorized live
+  run again produced **13/13 steps, `verified: True`, token `blaxcy-86335cad`**,
+  from a different starting cursor position (371,398). This shows the first run
+  was not a one-off. `.build-state/B7_EVIDENCE.md` now holds the latest run;
+  current-state docs were generalised to reference the artifact rather than a
+  single token/timestamp so future re-runs do not stale them.
 
 - Timestamp: 2026-10-01 (Phase-2/3 pass: browser, delegation, installer, Wayland,
   provider hardening, B7 harness)

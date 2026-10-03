@@ -15,8 +15,8 @@ reference-only and are never modified or imported.
   for the components that benefit from isolation.
 - Active task: none in progress. All on-host acceptance criteria are met.
 - Verified (2026-10-02, from the real filesystem): `python3 -m pytest` →
-  discrepancies; **B7 live acceptance → VERIFIED 2026-10-03T08:03Z (13/13 steps)**
-  → `.build-state/B7_EVIDENCE.md`;
+  discrepancies; **B7 live acceptance → VERIFIED 2026-10-03 (13/13 steps, two
+  consecutive authorized runs)** → `.build-state/B7_EVIDENCE.md`;
   **Eye, Memory and Brain all run as supervised subprocesses serving real data
   over authenticated IPC, restarting on crash** (DEC-021, DEC-022); full split
   `blaxcy run --split all` verified end-to-end against the real X11 desktop;
@@ -117,8 +117,9 @@ reference-only and are never modified or imported.
   from them. Inventory and port-back backlog: `RECONCILIATION.md`.
 - Evidence integrity (B-010, now RESOLVED): fixed the bug where an unauthorized
   `accept-live` run overwrote the real B7 artifact, then **regenerated genuine B7
-  evidence** — a live run with real input on 2026-10-03T08:03Z, 13/13 steps,
-  `verified: True` → `.build-state/B7_EVIDENCE.md`. The suite is now 247 tests.
+  evidence** — two authorized live runs with real input on 2026-10-03 (08:03:14Z
+  and 08:11:51Z), each 13/13 steps, `verified: True` →
+  `.build-state/B7_EVIDENCE.md` holds the latest. The suite is now 247 tests.
 
 ## How to resume
 

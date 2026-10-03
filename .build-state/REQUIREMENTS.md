@@ -29,7 +29,7 @@ Legend for evidence: file paths and test names that actually exist in the repo.
 | B4 | Dry-run is the default; real input requires explicit opt-in AND policy approval | IMPLEMENTED | `blaxcy/config.py`, `blaxcy/policy.py`, `tests/test_policy.py` |
 | B5 | Emergency stop, pause, user takeover, heartbeat, safe input release on crash | IMPLEMENTED | `blaxcy/policy.py`, `blaxcy/body/backends.py` |
 | B6 | Real X11 backend using XTEST/pyautogui/xdotool | IMPLEMENTED | `blaxcy/body/backends.py` |
-| B7 | Controlled live-desktop acceptance evidence (real visible interaction) | VERIFIED | `blaxcy/acceptance.py` + `blaxcy accept-live`; **live evidence produced 2026-10-03T08:03Z** → `.build-state/B7_EVIDENCE.md`: 13/13 steps, real cursor save (1003,668) → real mouse move to (688,445) → real click → real typing of token `blaxcy-ef473f8a` → token confirmed in the throwaway terminal's file → **independent Eye observation** of both the cursor position and the focused `BLAXCY_ACCEPT` window → EOF, cursor restored, target closed. `tests/test_acceptance.py` (7) covers the harness, and B-010 guarantees a refusal can never overwrite this artifact. |
+| B7 | Controlled live-desktop acceptance evidence (real visible interaction) | VERIFIED | `blaxcy/acceptance.py` + `blaxcy accept-live`; the timestamped artifact `.build-state/B7_EVIDENCE.md` holds the **latest** live run (2026-10-03T08:11:51Z): 13/13 steps — real cursor save, real mouse move, real click, real typing of the run's token confirmed in the throwaway terminal's file, **independent Eye observation** of both the cursor position and the focused `BLAXCY_ACCEPT` window, EOF, cursor restored, target closed. Reproducible: two consecutive authorized live runs on 2026-10-03 (08:03:14Z and 08:11:51Z) both returned `verified: True`. `tests/test_acceptance.py` (7) covers the harness, and B-010 guarantees a refusal can never overwrite this artifact. |
 
 ## C. Live Eye (Perception)
 
@@ -193,8 +193,8 @@ Legend for evidence: file paths and test names that actually exist in the repo.
 ## Acceptance criteria mapping (master prompt §29)
 
 **Net (2026-10-03): every acceptance criterion is now closed on this host.** A
-genuine B7 artifact was regenerated at 2026-10-03T08:03Z after the earlier one was
-lost, and B-010 is now resolved: a refusal can no longer overwrite evidence. Two
+genuine B7 artifact exists again (two authorized live runs on 2026-10-03, both
+13/13 verified), and B-010 is now resolved: a refusal can no longer overwrite evidence. Two
 further items remain purely *environment-gated*: H5's remote half (needs remote
 API keys, B-002) and D3's live proof (needs a Wayland host with a portal, B-003);
 both are IMPLEMENTED and tested. No requirement was weakened to reach this point.
@@ -204,7 +204,7 @@ enumeration spawned up to ~180 `xdotool` subprocesses per frame (~6.8s) and a
 `mousemove --sync` that hangs when the pointer is already at the target. Both
 were fixed (DEC-018/DEC-019); frames dropped from ~2.4–11.7s to ~0.8s.
 
-- Computer User: B1–B6 VERIFIED/IMPLEMENTED; B7 VERIFIED (artifact 2026-10-03T08:03Z).
+- Computer User: B1–B6 VERIFIED/IMPLEMENTED; B7 VERIFIED (two live artifacts, 2026-10-03).
 - Live Eye: C1–C10 IMPLEMENTED/VERIFIED.
 - Autonomy: A2, F1–F3, G1–G3, K1 IMPLEMENTED.
 - UI: E1–E4 IMPLEMENTED.
@@ -245,8 +245,8 @@ where possible a real runtime check:
   real remote endpoint (`scripts/brain_provider_bench.py`, PERFORMANCE.md); a
   keyed account provider only needs a key (B-002).
 - B7 → VERIFIED: the harness is implemented and tested, and a genuine live run
-  produced `.build-state/B7_EVIDENCE.md` on 2026-10-03T08:03Z after the earlier
-  artifact was lost (B-010, now resolved).
+  produced `.build-state/B7_EVIDENCE.md` twice on 2026-10-03 (both 13/13 verified)
+  after the earlier artifact was lost (B-010, now resolved).
 
 Status advances on 2026-10-02 (Brain provider latency pass):
 

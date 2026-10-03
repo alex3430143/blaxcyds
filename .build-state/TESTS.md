@@ -56,6 +56,10 @@ A resuming agent MUST re-run the tests rather than trusting these entries.
   `blaxcy-ef473f8a` confirmed in the target file, independent Eye confirmation,
   cursor restored. Artifact: `.build-state/B7_EVIDENCE.md`. The suite above
   remains 247 passing and still never moves the real mouse/keyboard.
+- 2026-10-03 (live acceptance, 08:11Z): **B7 VERIFIED again (13/13 steps)**, a
+  second authorized run with a different starting cursor — proving the first run
+  was reproducible. Token `blaxcy-86335cad`. Current-state docs now reference the
+  artifact rather than one token/timestamp, so a re-run cannot stale them.
 - Environment: Python 3.14.6, X11, XFCE.
 - Safety: no test moves the real mouse/keyboard. Perception uses fakes; control
   uses `DryRunBackend`; the B7 tests use a fake target/body/eye. The browser test
